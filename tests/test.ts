@@ -64,3 +64,19 @@ it("parse comments", () => {
    -->
   `);
 });
+
+it("parse highlite", () => {
+  expect(parse("==hello==")).toBe("<mark>hello</mark>");
+  expect(parse("== hello ==")).toBe("<mark> hello </mark>");
+  expect(
+    parse(`
+  ==
+  some text
+  ==
+  `)
+  ).toBe(`
+  <mark>
+  some text
+  </mark>
+  `);
+});

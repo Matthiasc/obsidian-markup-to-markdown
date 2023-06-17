@@ -35,6 +35,17 @@ const parse = (content: string): string => {
     content = content.replace(match[0], `<!-- ${inner} -->`);
   }
 
+  /* 
+        replace highlites 
+    */
+  regex = /(?:==)([\s\S]+?)(?:==)/g;
+
+  while ((match = regex.exec(content))) {
+    const inner = match[1];
+
+    content = content.replace(match[0], `<mark>${inner}</mark>`);
+  }
+
   return content;
 };
 
