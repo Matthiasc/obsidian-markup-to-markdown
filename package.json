@@ -1,6 +1,6 @@
 {
   "name": "@matthiasc/obsidian-markup-to-markdown",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "parse obsidian markup to regular markdown",
   "main": "./lib/cjs/index.js",
   "types": "./lib/cjs/types/index.d.ts",
