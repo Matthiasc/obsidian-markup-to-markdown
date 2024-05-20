@@ -1,6 +1,6 @@
 import slugify from "slugify";
 
-const parse = (content: string, slugifyUri: boolean = false): string => {
+const parse = (content: string, urlEncodeUri: boolean = false): string => {
   /*
   replace links
   */
@@ -9,11 +9,10 @@ const parse = (content: string, slugifyUri: boolean = false): string => {
   let match;
 
   while ((match = regex.exec(content))) {
-    console.log("!2", content);
     let link = match[1];
     const name = match[2] || link;
 
-    if (slugifyUri) link = slugify(link);
+    if (urlEncodeUri) link = encodeURIComponent(link.trim());
 
     content = content.replace(match[0], `[${name.trim()}](${link.trim()})`);
   }
@@ -24,13 +23,11 @@ const parse = (content: string, slugifyUri: boolean = false): string => {
 
   regex = /(?:!\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
   while ((match = regex.exec(content))) {
-    console.log("@@@@@@@");
-
     let link = match[1];
     const name = match[2] || link;
 
-    // if (slugifyUri) link = slugify(link);
-    console.log("link", link);
+    if (urlEncodeUri) link = encodeURIComponent(link.trim());
+
     content = content.replace(match[0], `![${name.trim()}](${link.trim()})`);
   }
 

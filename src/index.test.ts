@@ -1,4 +1,4 @@
-import parse from "../src/index";
+import parse from "./index";
 
 it("parse link", () => {
   expect(parse("[[X]]")).toBe("[X](X)");
@@ -16,10 +16,10 @@ it("parse link", () => {
 
 it("parse link with slugify", () => {
   expect(parse("[[Obsidian file title]]", true)).toBe(
-    "[Obsidian file title](Obsidian-file-title)"
+    "[Obsidian file title](Obsidian%20file%20title)"
   );
   expect(parse("[[ Obsidian file title  ]]", true)).toBe(
-    "[Obsidian file title](Obsidian-file-title)"
+    "[Obsidian file title](Obsidian%20file%20title)"
   );
 });
 
@@ -61,9 +61,9 @@ it("parse image", () => {
 });
 
 it("parse image with slugify", () => {
-  expect(parse("![[file 02.png]]", true)).toBe("![file 02.png](file-02.png)");
+  expect(parse("![[file 02.png]]", true)).toBe("![file 02.png](file%2002.png)");
   expect(parse("![[my cat is cool.png ]]", true)).toBe(
-    "![my cat is cool.png](my-cat-is-cool.png)"
+    "![my cat is cool.png](my%20cat%20is%20cool.png)"
   );
 });
 
