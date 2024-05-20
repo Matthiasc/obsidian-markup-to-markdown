@@ -6,8 +6,21 @@ it("parse link", () => {
 });
 
 it("parse link", () => {
-  expect(parse("[[Obsidian file title]]")).toBe("[Obsidian file title](Obsidian file title)");
-  expect(parse("[[ Obsidian file title  ]]")).toBe("[Obsidian file title](Obsidian file title)");
+  expect(parse("[[Obsidian file title]]")).toBe(
+    "[Obsidian file title](Obsidian file title)"
+  );
+  expect(parse("[[ Obsidian file title  ]]")).toBe(
+    "[Obsidian file title](Obsidian file title)"
+  );
+});
+
+it("parse link with slugify", () => {
+  expect(parse("[[Obsidian file title]]", true)).toBe(
+    "[Obsidian file title](Obsidian-file-title)"
+  );
+  expect(parse("[[ Obsidian file title  ]]", true)).toBe(
+    "[Obsidian file title](Obsidian-file-title)"
+  );
 });
 
 it("parse link", () => {
@@ -20,8 +33,12 @@ it("parse link", () => {
 });
 
 it("parse link", () => {
-  expect(parse("[[https://www.domain.com | alternating title]]")).toBe("[alternating title](https://www.domain.com)");
-  expect(parse("[[https://www.domain.com|alternating title]]")).toBe("[alternating title](https://www.domain.com)");
+  expect(parse("[[https://www.domain.com | alternating title]]")).toBe(
+    "[alternating title](https://www.domain.com)"
+  );
+  expect(parse("[[https://www.domain.com|alternating title]]")).toBe(
+    "[alternating title](https://www.domain.com)"
+  );
 });
 
 it("parse link", () => {
@@ -43,9 +60,11 @@ it("parse image", () => {
   expect(parse("![[file.png ]]")).toBe("![file.png](file.png)");
 });
 
-it("parse image", () => {
-  expect(parse("![[file.png]]")).toBe("![file.png](file.png)");
-  expect(parse("![[file.png ]]")).toBe("![file.png](file.png)");
+it("parse image with slugify", () => {
+  expect(parse("![[file 02.png]]", true)).toBe("![file 02.png](file-02.png)");
+  expect(parse("![[my cat is cool.png ]]", true)).toBe(
+    "![my cat is cool.png](my-cat-is-cool.png)"
+  );
 });
 
 it("parse comments", () => {

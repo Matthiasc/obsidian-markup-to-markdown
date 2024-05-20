@@ -1,14 +1,20 @@
-const parse = (content: string): string => {
+import slugify from "slugify";
+
+const parse = (content: string, slugifyUri: boolean = false): string => {
   /*
-        replace links
-    */
+  replace links
+  */
 
   let regex = /(?:\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
   let match;
 
   while ((match = regex.exec(content))) {
-    const link = match[1];
+    console.log("!2", content);
+    let link = match[1];
     const name = match[2] || link;
+
+    if (slugifyUri) link = slugify(link);
+
     content = content.replace(match[0], `[${name.trim()}](${link.trim()})`);
   }
 
@@ -17,10 +23,14 @@ const parse = (content: string): string => {
      */
 
   regex = /(?:!\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
-
   while ((match = regex.exec(content))) {
-    const link = match[1];
+    console.log("@@@@@@@");
+
+    let link = match[1];
     const name = match[2] || link;
+
+    // if (slugifyUri) link = slugify(link);
+    console.log("link", link);
     content = content.replace(match[0], `![${name.trim()}](${link.trim()})`);
   }
 
