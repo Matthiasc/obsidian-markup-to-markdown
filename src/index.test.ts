@@ -105,3 +105,29 @@ it("parse highlite", () => {
   </mark>
   `);
 });
+
+it("parse callout", () => {
+  expect(
+    oneliner(
+      parse(`> [!info] Info title!
+> info message
+`).trim()
+    )
+  ).toBe(
+    `<div class="callout" data-callout="info"> <div class="callout-title">Info title!</div> <div class="callout-content">info message</div> </div>`
+  );
+
+  expect(
+    oneliner(
+      parse(`> [!warning] Warning title ⚠️
+> warning message
+`).trim()
+    )
+  ).toBe(
+    `<div class="callout" data-callout="warning"> <div class="callout-title">Warning title ⚠️</div> <div class="callout-content">warning message</div> </div>`
+  );
+});
+
+function oneliner(s: string) {
+  return s.replace(/[\s\n\r\t]+/g, " ").trim();
+}
