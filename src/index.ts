@@ -59,22 +59,22 @@ const parse = (content: string, urlEncodeUri: boolean = false): string => {
    * https://help.obsidian.md/Editing+and+formatting/Callouts
    */
 
-  regex =
-    /(?:> \[!)(\w+)(?:\] ?)([^\n]*)(?:\n> )([\s\S]+?)(?=\n(?:> \[!|\n|$))/g;
+  //   regex =
+  //     /(?:> \[!)(\w+)(?:\] ?)([^\n]*)(?:\n> )([\s\S]+?)(?=\n(?:> \[!|\n|$))/g;
 
-  while ((match = regex.exec(content))) {
-    const type = match[1].toLowerCase();
-    const title = match[2] || "";
-    const body = match[3].replace(/(?:> )/g, "").trim(); // Remove leading "> " from body lines
+  //   while ((match = regex.exec(content))) {
+  //     const type = match[1].toLowerCase();
+  //     const title = match[2] || "";
+  //     const body = match[3].replace(/(?:> )/g, "").trim(); // Remove leading "> " from body lines
 
-    const calloutHtml = `
-<div class="callout" data-callout="${type}">
-  <div class="callout-title">${title}</div>
-  <div class="callout-content">${body}</div>
-</div>`.trim();
+  //     const calloutHtml = `
+  // <div class="callout" data-callout="${type}">
+  //   <div class="callout-title">${title}</div>
+  //   <div class="callout-content">${body}</div>
+  // </div>`.trim();
 
-    content = content.replace(match[0], calloutHtml);
-  }
+  //     content = content.replace(match[0], calloutHtml);
+  //   }
 
   return content;
 };
