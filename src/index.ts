@@ -1,5 +1,3 @@
-import slugify from "slugify";
-
 const parse = (content: string, urlEncodeUri: boolean = false): string => {
   /*
   replace links
