@@ -1,6 +1,6 @@
 type ParseOptions = {
   urlEncodeUri?: boolean;
-  defaultLinkAsCaption?: boolean;
+  defaultImageLinkAsCaption?: boolean;
 };
 /**
  *
@@ -11,13 +11,30 @@ type ParseOptions = {
  * @returns
  */
 const parse = (content: string, options?: ParseOptions): string => {
-  const { urlEncodeUri = false, defaultLinkAsCaption = true } = options || {};
+  const { urlEncodeUri = false, defaultImageLinkAsCaption = true } =
+    options || {};
+
+  /*
+    replace images
+  */
+
+  let regex = /(?:!\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
+  let match;
+
+  while ((match = regex.exec(content))) {
+    let link = match[1];
+    const name = match[2] || (defaultImageLinkAsCaption ? link : "");
+
+    if (urlEncodeUri) link = encodeURIComponent(link.trim());
+
+    content = content.replace(match[0], `![${name.trim()}](${link.trim()})`);
+  }
+
   /*
   replace links
   */
 
-  let regex = /(?:\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
-  let match;
+  regex = /(?:\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
 
   while ((match = regex.exec(content))) {
     let link = match[1];
@@ -26,20 +43,6 @@ const parse = (content: string, options?: ParseOptions): string => {
     if (urlEncodeUri) link = encodeURIComponent(link.trim());
 
     content = content.replace(match[0], `[${name.trim()}](${link.trim()})`);
-  }
-
-  /*
-        replace images
-     */
-
-  regex = /(?:!\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
-  while ((match = regex.exec(content))) {
-    let link = match[1];
-    const name = match[2] || (defaultLinkAsCaption ? link : "");
-
-    if (urlEncodeUri) link = encodeURIComponent(link.trim());
-
-    content = content.replace(match[0], `![${name.trim()}](${link.trim()})`);
   }
 
   /* 

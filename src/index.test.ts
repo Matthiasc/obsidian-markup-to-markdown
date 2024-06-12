@@ -66,6 +66,12 @@ it("parse image", () => {
   expect(parse("![[file.png ]]")).toBe("![file.png](file.png)");
 });
 
+it("parse image with no default image link as caption", () => {
+  expect(parse("![[file.png]]", { defaultImageLinkAsCaption: false })).toBe(
+    "![](file.png)"
+  );
+});
+
 it("parse image with encoding", () => {
   expect(parse("![[file 02.png]]", { urlEncodeUri: true })).toBe(
     "![file 02.png](file%2002.png)"
