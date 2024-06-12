@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Matthiasc/obsidian-markup-to-markdown/compare/v1.1.6...v1.2.0) (2024-06-12)
+
+
+### Features
+
+* defaultLinkAsCaption ([66da541](https://github.com/Matthiasc/obsidian-markup-to-markdown/commit/66da541bd8784b51a411165b654d186d743db5fc))
+
 ### [1.1.6](https://github.com/Matthiasc/obsidian-markup-to-markdown/compare/v1.1.5...v1.1.6) (2024-05-31)
 
 ### [1.1.5](https://github.com/Matthiasc/obsidian-markup-to-markdown/compare/v1.1.4...v1.1.5) (2024-05-27)
