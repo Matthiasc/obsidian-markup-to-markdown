@@ -1,4 +1,17 @@
-const parse = (content: string, urlEncodeUri: boolean = false): string => {
+type ParseOptions = {
+  urlEncodeUri?: boolean;
+  defaultLinkAsCaption?: boolean;
+};
+/**
+ *
+ * @param content
+ * @param {object} options
+ * @param {boolean} options.urlEncodeUri - encode links and image src
+ * @param {boolean} options.defaultLinkAsCaption - when no caption is provided, use the link as the caption
+ * @returns
+ */
+const parse = (content: string, options?: ParseOptions): string => {
+  const { urlEncodeUri = false, defaultLinkAsCaption = true } = options || {};
   /*
   replace links
   */
@@ -22,7 +35,7 @@ const parse = (content: string, urlEncodeUri: boolean = false): string => {
   regex = /(?:!\[\[)([^\]^\|]+)(?:\|([^\]]+))?(?:\]\])/g;
   while ((match = regex.exec(content))) {
     let link = match[1];
-    const name = match[2] || link;
+    const name = match[2] || (defaultLinkAsCaption ? link : "");
 
     if (urlEncodeUri) link = encodeURIComponent(link.trim());
 

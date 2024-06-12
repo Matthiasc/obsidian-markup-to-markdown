@@ -15,10 +15,10 @@ it("parse link", () => {
 });
 
 it("parse link with encoding", () => {
-  expect(parse("[[Obsidian file title]]", true)).toBe(
+  expect(parse("[[Obsidian file title]]", { urlEncodeUri: true })).toBe(
     "[Obsidian file title](Obsidian%20file%20title)"
   );
-  expect(parse("[[ Obsidian file title  ]]", true)).toBe(
+  expect(parse("[[ Obsidian file title  ]]", { urlEncodeUri: true })).toBe(
     "[Obsidian file title](Obsidian%20file%20title)"
   );
 });
@@ -42,9 +42,9 @@ it("parse link with alternative text", () => {
 });
 
 it("parse link with alternative text and encoding", () => {
-  expect(parse("[[link to file|alternative text]]", true)).toBe(
-    "[alternative text](link%20to%20file)"
-  );
+  expect(
+    parse("[[link to file|alternative text]]", { urlEncodeUri: true })
+  ).toBe("[alternative text](link%20to%20file)");
 });
 
 it("parse link", () => {
@@ -67,8 +67,10 @@ it("parse image", () => {
 });
 
 it("parse image with encoding", () => {
-  expect(parse("![[file 02.png]]", true)).toBe("![file 02.png](file%2002.png)");
-  expect(parse("![[my cat is cool.png ]]", true)).toBe(
+  expect(parse("![[file 02.png]]", { urlEncodeUri: true })).toBe(
+    "![file 02.png](file%2002.png)"
+  );
+  expect(parse("![[my cat is cool.png ]]", { urlEncodeUri: true })).toBe(
     "![my cat is cool.png](my%20cat%20is%20cool.png)"
   );
 });
